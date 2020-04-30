@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const Redirecting = ({ component: Component, ...rest}) => {
+const Redirecting = ({ component: Component, ...props}) => {
     return(
         <Route
-            {...rest}
-            render={(props) => {
+            {...props}
+            render={() => {
                 if (localStorage.getItem('token')) {
-                    return <Component {...props}/>;
+                    return <Component/>;
                 } else {
                     return <Redirect to="/login"/>
                 }

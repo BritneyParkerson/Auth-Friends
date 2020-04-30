@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
-import { axiosWithAuth } from '..//Token';
+import { axiosWithAuth } from '../Token';
 
-const FriendsInfo = () => {
-    const [friendInfo, setFriendInfo] = useState ({
+const FriendRequest = () => {
+    const [confirmAdd, setConfirmAdd] = useState ({
         name: '',
         age: '',
         email: '',
     })
     const handleChange = e => {
         e.preventDefault();
-        setFriendInfo({
-            ...friendInfo,
+        setConfirmAdd({
+            ...confirmAdd,
             [e.target.name]: e.target.value
-        })
-    }
+        });
+    };
     const handleSubmit = e => {
         e.preventDefault();
         axiosWithAuth()
-        .post('/api/friends', friendInfo)
+        .post('/api/friends', confirmAdd)
         .then(res => {
             console.log(res);
-            setFriendInfo({name:'', age:'', email:''})
+            setConfirmAdd({name:'', age: '', email:''})
         });
     };
     return(
@@ -30,29 +30,30 @@ const FriendsInfo = () => {
                 type='text'
                 id='name'
                 name='name'
-                placeholder='Name That Friend - AKA Yourself!'
+                placeholder='Your Name'
                 onChange={handleChange}
-                value={friendInfo.name}
+                value={confirmAdd.name}
             /> 
             <input
                 required
                 type='text'
                 id='age'
                 name='age'
-                placeholder='Please Tell Us Your Age'
+                placeholder='Your Age'
                 onChange={handleChange}
-                value={friendInfo.name}
+                value={confirmAdd.age}
             />
             <input
                 required
                 type='text'
                 id='email'
                 name='email'
-                placeholder='What is your best email address?'
+                placeholder='Best email address'
                 onChange={handleChange}
-                value={friendInfo.name}
+                value={confirmAdd.email}
             />
+            <button type="submit">Add Friend</button>
         </form>
     )
 };
-export default FriendsInfo;
+export default FriendRequest;
